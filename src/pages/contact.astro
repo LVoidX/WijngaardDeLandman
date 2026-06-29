@@ -1,0 +1,86 @@
+---
+import Layout from "../layouts/Layout.astro";
+---
+
+<Layout title="Contact">
+  <section class="section">
+    <div class="container">
+      <h1>Contact</h1>
+      <p>Vragen, een bezoek inplannen of een workshop boeken? Neem gerust contact op.</p>
+
+      <div class="contact-grid">
+        <div>
+          <h2>Gegevens</h2>
+          <p>
+            <strong>Wijngaard De Landman</strong><br />
+            Tolhuisweg 17<br />
+            8101 NV Raalte<br /><br />
+            Tel: 0644554546 of 0572364177<br />
+            E-mail: <a href="mailto:info@wijngaarddelandman.nl">info@wijngaarddelandman.nl</a>
+          </p>
+
+          <h2>Openingstijden</h2>
+          <div class="todo-note">Stond niet op de oude site — vul hier de openingstijden in als je oom die wil tonen.</div>
+        </div>
+
+        <div>
+          <h2>Stuur een bericht</h2>
+          <div class="todo-note">
+            Dit formulier is alleen opmaak — de verzendlogica bouw jij zelf
+            (bijv. met een form-service of een eigen endpoint).
+          </div>
+          {/* TODO (jij): koppel dit formulier aan een verzendmethode */}
+          <form class="contact-form">
+            <label>
+              Naam
+              <input type="text" name="naam" autocomplete="name" />
+            </label>
+            <label>
+              E-mail
+              <input type="email" name="email" autocomplete="email" />
+            </label>
+            <label>
+              Bericht
+              <textarea name="bericht" rows="5"></textarea>
+            </label>
+            <button class="button" type="submit">Versturen</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .contact-grid {
+    display: grid;
+    gap: 2.5rem;
+    grid-template-columns: repeat(auto-fit, minmax(18rem, 1fr));
+    margin-top: 1.5rem;
+  }
+
+  .contact-form {
+    display: grid;
+    gap: 1rem;
+  }
+
+  .contact-form label {
+    display: grid;
+    gap: 0.35rem;
+    font-size: 0.9rem;
+    font-weight: 600;
+  }
+
+  .contact-form input,
+  .contact-form textarea {
+    font: inherit;
+    padding: 0.6rem 0.7rem;
+    border: 1px solid var(--color-line);
+    border-radius: 4px;
+    background: #fff;
+  }
+
+  .contact-form button {
+    justify-self: start;
+  }
+</style>

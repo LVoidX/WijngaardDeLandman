@@ -1,0 +1,253 @@
+/* =========================================================================
+   Global styles for Wijngaard De Landman
+
+   COLOUR THEMES
+   The whole site is themeable. The active theme is set with a
+   `data-theme="..."` attribute on the <html> element (handled by a small
+   script + the Groen/Rood toggle in the header). To tweak a palette you only
+   edit the variable blocks below — every page picks the colours up from here.
+
+     - Default (no attribute / data-theme="groen") = GREEN  (his original look)
+     - data-theme="rood"                           = WINE RED
+
+   Note: the variable names still say "wine" for historical reasons, but they
+   simply mean "primary brand colour" and "darker shade" — whatever the theme.
+   ========================================================================= */
+
+:root {
+  /* ---- GREEN theme (default) — refined from the logo's leaves ---- */
+  --color-wine: #3f7a4e;       /* primary brand colour (links, buttons)     */
+  --color-wine-dark: #2b5a39;  /* darker shade (headings, hero, footer bg)  */
+  --color-cream: #f6f4ec;      /* page background + light text on dark areas */
+  --color-ink: #28302a;        /* body text                                 */
+  --color-muted: #616b61;      /* secondary text                            */
+  --color-line: #e1e3d7;       /* borders / dividers                        */
+  --color-accent: #b8892f;     /* warm gold accent (dates, highlights)      */
+
+  /* Typography */
+  --font-heading: Georgia, "Times New Roman", serif;
+  --font-body: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+
+  /* Layout */
+  --maxw: 72rem;
+  --space: 1.25rem;
+}
+
+:root[data-theme="rood"] {
+  /* ---- WINE RED theme ---- */
+  --color-wine: #7a2230;
+  --color-wine-dark: #58151f;
+  --color-cream: #faf6ef;
+  --color-ink: #2a2422;
+  --color-muted: #6f6760;
+  --color-line: #e8ddd0;
+  --color-accent: #b08a3e;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-body);
+  color: var(--color-ink);
+  background: var(--color-cream);
+  line-height: 1.65;
+}
+
+h1,
+h2,
+h3 {
+  font-family: var(--font-heading);
+  line-height: 1.2;
+  color: var(--color-wine-dark);
+  margin: 0 0 0.5em;
+}
+
+h1 {
+  font-size: clamp(2rem, 5vw, 3rem);
+}
+
+h2 {
+  font-size: clamp(1.5rem, 3vw, 2rem);
+}
+
+p {
+  margin: 0 0 1em;
+}
+
+a {
+  color: var(--color-wine);
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* ---- Layout helpers ---- */
+.container {
+  width: 100%;
+  max-width: var(--maxw);
+  margin-inline: auto;
+  padding-inline: var(--space);
+}
+
+.section {
+  padding-block: clamp(2.5rem, 6vw, 4.5rem);
+}
+
+/* ---- Header / nav ---- */
+.site-header {
+  border-bottom: 1px solid var(--color-line);
+  background: var(--color-cream);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.site-header__inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem 1.5rem;
+  padding-block: 0.9rem;
+  flex-wrap: wrap;
+}
+
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 1rem 1.5rem;
+  flex-wrap: wrap;
+}
+
+.brand {
+  display: inline-flex;
+  align-items: center;
+  text-decoration: none;
+}
+
+.brand img {
+  height: 52px;
+  width: auto;
+}
+
+.nav {
+  display: flex;
+  gap: 1.25rem;
+  flex-wrap: wrap;
+}
+
+.nav a {
+  text-decoration: none;
+  color: var(--color-ink);
+  font-size: 0.95rem;
+}
+
+.nav a:hover,
+.nav a[aria-current="page"] {
+  color: var(--color-wine);
+  text-decoration: underline;
+}
+
+/* ---- Theme toggle (temporary — for choosing a palette) ----
+   Remove this block (and the toggle markup in Layout.astro) once a final
+   colour scheme is picked. */
+.theme-toggle {
+  display: inline-flex;
+  border: 1px solid var(--color-line);
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+.theme-toggle button {
+  font: inherit;
+  font-size: 0.8rem;
+  line-height: 1;
+  padding: 0.4rem 0.85rem;
+  border: 0;
+  background: transparent;
+  color: var(--color-ink);
+  cursor: pointer;
+}
+
+.theme-toggle button[aria-pressed="true"] {
+  background: var(--color-wine);
+  color: #fff;
+}
+
+/* ---- Buttons ---- */
+.button {
+  display: inline-block;
+  background: var(--color-wine);
+  color: #fff;
+  text-decoration: none;
+  padding: 0.7rem 1.4rem;
+  border-radius: 4px;
+  font-size: 0.95rem;
+}
+
+.button:hover {
+  background: var(--color-wine-dark);
+}
+
+/* ---- Hero ---- */
+.hero {
+  background: var(--color-wine-dark);
+  color: var(--color-cream);
+  text-align: center;
+  padding-block: clamp(3rem, 9vw, 6rem);
+}
+
+.hero h1 {
+  color: #fff;
+}
+
+.hero p {
+  max-width: 40rem;
+  margin-inline: auto;
+  font-size: 1.15rem;
+}
+
+/* ---- Footer ---- */
+.site-footer {
+  background: var(--color-wine-dark);
+  color: var(--color-cream);
+  margin-top: 3rem;
+}
+
+.site-footer a {
+  color: var(--color-cream);
+}
+
+.site-footer__inner {
+  display: grid;
+  gap: 1.5rem;
+  padding-block: 2.5rem;
+  grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr));
+}
+
+.site-footer h3 {
+  color: #fff;
+  font-size: 1.05rem;
+}
+
+/* ---- Simple content placeholder note (remove once real copy is in) ---- */
+.todo-note {
+  border-left: 4px solid var(--color-accent);
+  background: #fff8e8;
+  color: #6a531c;
+  padding: 0.75rem 1rem;
+  margin: 1rem 0;
+  font-size: 0.9rem;
+  border-radius: 0 4px 4px 0;
+}

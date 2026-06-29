@@ -1,0 +1,134 @@
+---
+/*
+ * Shared page layout: <head>, sticky header + nav, and footer.
+ * Every page wraps its content in <Layout title="..."> ... </Layout>.
+ *
+ * Props:
+ *   - title: shown in the browser tab / search results
+ *   - description: meta description for SEO (optional)
+ */
+import "../styles/global.css";
+
+const { title, description = "Wijngaard De Landman — wijngaard in Raalte waar je je eigen wijnstok kunt adopteren." } = Astro.props;
+
+// Navigation items. `href` is matched against the current URL to highlight
+// the active link. Edit this one list to change the menu everywhere.
+const navItems = [
+  { href: "/", label: "Home" },
+  { href: "/wijngaard", label: "Wijngaard" },
+  { href: "/actueel", label: "Actueel" },
+  { href: "/workshops", label: "Workshops" },
+  { href: "/streekproducten", label: "Streekproducten" },
+  { href: "/winkel", label: "Winkel" },
+  { href: "/contact", label: "Contact" },
+];
+
+// Normalise the current path so "/wijngaard/" and "/wijngaard" both match.
+const current = Astro.url.pathname.replace(/\/$/, "") || "/";
+---
+
+<!doctype html>
+<html lang="nl">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" href="/favicon.ico" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="generator" content={Astro.generator} />
+    <meta name="description" content={description} />
+    <title>{title} — Wijngaard De Landman</title>
+
+    {/* Apply the saved colour theme before the page paints (avoids a flash). */}
+    <script is:inline>
+      (function () {
+        var t = localStorage.getItem("theme") || "groen";
+        document.documentElement.setAttribute("data-theme", t);
+      })();
+    </script>
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="container site-header__inner">
+        <a class="brand" href="/">
+          <img src="/images/logo.png" alt="Wijngaard De Landman" width="989" height="288" />
+        </a>
+        <div class="header-right">
+          <nav class="nav" aria-label="Hoofdmenu">
+            {
+              navItems.map((item) => {
+                const itemPath = item.href.replace(/\/$/, "") || "/";
+                const isActive = current === itemPath;
+                return (
+                  <a href={item.href} aria-current={isActive ? "page" : undefined}>
+                    {item.label}
+                  </a>
+                );
+              })
+            }
+          </nav>
+
+          {/* Temporary palette chooser — remove once a colour scheme is picked. */}
+          <div class="theme-toggle" role="group" aria-label="Kleurthema">
+            <button type="button" data-set-theme="groen">Groen</button>
+            <button type="button" data-set-theme="rood">Rood</button>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <slot />
+    </main>
+
+    <footer class="site-footer">
+      <div class="container site-footer__inner">
+        <div>
+          <h3>Wijngaard De Landman</h3>
+          <p>Wijngaard in Raalte waar je je eigen wijnstok kunt adopteren en meebeleeft hoe wijn ontstaat.</p>
+        </div>
+        <div>
+          <h3>Contact</h3>
+          <p>
+            Tolhuisweg 17<br />
+            8101 NV Raalte<br />
+            Tel: 0644554546 of 0572364177<br />
+            E-mail: <a href="mailto:info@wijngaarddelandman.nl">info@wijngaarddelandman.nl</a>
+          </p>
+        </div>
+        <div>
+          <h3>Volg ons</h3>
+          <p><a href="https://www.facebook.com/wijngaarddelandman/" target="_blank" rel="noopener">Facebook</a></p>
+        </div>
+      </div>
+    </footer>
+
+    {/* Toggle wiring: switch theme on click, remember the choice, and show
+        which palette is active. Remove together with the toggle markup. */}
+    <script is:inline>
+      (function () {
+        var buttons = document.querySelectorAll("[data-set-theme]");
+
+        function sync() {
+          var current = document.documentElement.getAttribute("data-theme");
+          buttons.forEach(function (b) {
+            b.setAttribute(
+              "aria-pressed",
+              b.getAttribute("data-set-theme") === current ? "true" : "false"
+            );
+          });
+        }
+
+        buttons.forEach(function (b) {
+          b.addEventListener("click", function () {
+            var t = b.getAttribute("data-set-theme");
+            document.documentElement.setAttribute("data-theme", t);
+            localStorage.setItem("theme", t);
+            sync();
+          });
+        });
+
+        sync();
+      })();
+    </script>
+  </body>
+</html>

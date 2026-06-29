@@ -1,0 +1,100 @@
+---
+import Layout from "../layouts/Layout.astro";
+---
+
+<style>
+  .portrait {
+    margin: 0 0 1rem 1.5rem;
+    float: right;
+    max-width: 16rem;
+    width: 40%;
+    min-width: 11rem;
+  }
+
+  .portrait img {
+    width: 100%;
+    height: auto;
+    border-radius: 6px;
+    border: 1px solid var(--color-line);
+  }
+
+  /* On narrow screens the float gets cramped — stack it instead. */
+  @media (max-width: 38rem) {
+    .portrait {
+      float: none;
+      width: 100%;
+      max-width: 100%;
+      margin-left: 0;
+    }
+  }
+</style>
+
+<Layout title="Wijngaard">
+  <section class="section">
+    <div class="container">
+      <h1>Onze wijngaard</h1>
+      <p>
+        "Bijzondere druivenrassen op onderstam, die aangepast zijn aan ons natte
+        klimaat, resistent tegen schimmels en twee weken eerder rijp." Regent en
+        Cabernet zijn de blauwe wijndruiven en Solaris de witte druif. Oogsten
+        doen we vanaf half september tot half oktober.
+      </p>
+
+      <h2>Duurzaam en fruitvriendelijk</h2>
+      <figure class="portrait">
+        <img
+          src="/images/uncle.jpg"
+          alt="De wijngaardenier van De Landman voor de windmolen"
+          width="246"
+          height="300"
+        />
+      </figure>
+      <p>
+        "Hoe we duurzaam en biologisch werken laten we u graag zien tijdens de
+        rondleidingen." We doen meer met tegenwind door het decentraal benutten
+        van windenergie. Die windenergie gebruiken we ook voor het drogen van
+        Appelchips. Juist, gedroogd met tegenwind. Onder de medewerkers in de
+        buitendienst rekenen we ook de bijen (bestuiving), torenvalken (bewaking
+        van de oogst), poulepetaten (alarmdienst) en Ouessant schapen
+        (grasmaaien), het kleinste schapenras ter wereld. Vanaf april tot oktober
+        wordt er volop gewerkt aan het onderhoud van de druiven. De wintersnoei
+        vindt plaats vanaf eind November tot eind Januari. Maar zonder de hulp van
+        de vele vrijwilligers zouden we in het jaar niet rondkomen met het werk.
+        Elke druivenstok vraagt wel 15 minuten aandacht om voldoende
+        druiventrossen te produceren die gebruikt kunnen worden voor één fles wijn.
+      </p>
+
+      <h2>Wijnlokaal activiteiten en ontvangstruimte</h2>
+      <p>
+        In het wijnlokaal ontvangen we groepen die zelf wijn, bier of likeur
+        komen maken. Zomaar een avondje uit met inhoud of een meerdaagse serieuze
+        kursus wijnmaken. Het wijnlokaal wordt ook gebruikt voor de activiteiten
+        van het Raalter Amateur Wijn en Biermakers Gilde. In het Wijnlokaal zijn
+        materialen voor het maken van wijn, bier en likeur te krijgen.
+      </p>
+
+      <h2>Wijnkelder</h2>
+      <p>
+        De druiven worden zelf verwerkt tot wijn en wijnig in de wijnkelder, onze
+        produktieruimte. Van de witte druiven maken we direct sap, most dat we aan
+        het gisten brengen. De rode druiven worden gekneusd. De schillen blijven
+        enkele dagen meegisten waarna alles wordt uitgeperst. Een deel van de
+        oogst laten wij verwerken door de Tappenmars
+      </p>
+
+      <h2>Italiaanse Wijnen in Salland</h2>
+      <p>
+        De Landman in Raalte heeft naast de wijngaard aan de Tolhuisweg ook een
+        wijngaard in Piemonte Italië. De buren Perluigi en Cavallero maken van de
+        Dolcetto, Barbera en Chardonnay druiven prachtige wijnen. De Landman reist
+        ieder jaar in September naar Piemonte om zelf te helpen bij het plukken van
+        de druiventrossen en het opzetten van de vergisting. De technieken uit dit
+        oude wijngebied gebruikt De Landman in Raalte voor de vinificatie van haar
+        eigen Nederlandse druiven als de Regent, Cabernet en Solaris. Zo komen de
+        oude en de nieuwe wijnwerelden bij elkaar. Wil je proeven wat we bedoelen
+        met prachtige Italiaanse Wijnen uit Piemonte kom dan kijken wat we in de
+        kelder voor u klaar hebben liggen.
+      </p>
+    </div>
+  </section>
+</Layout>

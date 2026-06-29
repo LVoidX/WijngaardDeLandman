@@ -1,0 +1,90 @@
+---
+import Layout from "../layouts/Layout.astro";
+
+// Placeholder product data so the shop layout has something to render.
+// Later this becomes your real catalogue; the cart/checkout logic is yours to
+// wire up (e.g. Snipcart) — the button below is just a styled stub for now.
+const products = [
+  { id: "raalter-rood", name: "Raalter Rood", price: "€ 12,50", note: "Cabernet en Regent druif" },
+  { id: "raalter-rose", name: "Raalter Rose", price: "€ 12,50", note: "Regent druif met klein beetje Cebernet" },
+  { id: "boeren-wit", name: "Boeren Wit", price: "€ 12,50", note: "Solaris druif" },
+];
+---
+
+<Layout title="Winkel">
+  <section class="section">
+    <div class="container">
+      <h1>Winkel</h1>
+      <p>Onze wijnen, thuisbezorgd of af te halen. Per doos à 6 stuks gratis verzending. Per doos zelf afhalen: bel voor een afspraak en de prijzen per doos.</p>
+
+      <div class="todo-note">
+        Dit is de opzet van de webshop met de echte wijnen van de oude site. De
+        winkellogica (winkelwagen, afrekenen, iDEAL-betaling) bouw je zelf —
+        bijvoorbeeld met Snipcart. Ik heb de knop alvast als stub klaargezet zodat
+        de opmaak klopt.
+      </div>
+
+      <div class="product-grid">
+        {
+          products.map((product) => (
+            <article class="product-card">
+              <div class="product-card__image" aria-hidden="true">Foto</div>
+              <h2 class="product-card__title">{product.name}</h2>
+              <p class="product-card__note">{product.note}</p>
+              <p class="product-card__price">{product.price}</p>
+              {/* TODO (jij): hier komt de echte "in winkelwagen"-knop van je shop-tool */}
+              <button class="button" type="button" data-product-id={product.id}>
+                In winkelwagen
+              </button>
+            </article>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .product-grid {
+    display: grid;
+    gap: 1.5rem;
+    grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr));
+    margin-top: 1.5rem;
+  }
+
+  .product-card {
+    background: #fff;
+    border: 1px solid var(--color-line);
+    border-radius: 6px;
+    padding: 1.25rem;
+    text-align: center;
+  }
+
+  .product-card__image {
+    aspect-ratio: 4 / 3;
+    display: grid;
+    place-items: center;
+    background: var(--color-cream);
+    color: var(--color-muted);
+    border-radius: 4px;
+    margin-bottom: 1rem;
+    font-size: 0.85rem;
+  }
+
+  .product-card__title {
+    font-size: 1.1rem;
+    margin: 0 0 0.25rem;
+  }
+
+  .product-card__note {
+    color: var(--color-muted);
+    font-size: 0.85rem;
+    margin: 0 0 0.5rem;
+  }
+
+  .product-card__price {
+    font-weight: 700;
+    color: var(--color-wine);
+    margin: 0 0 1rem;
+  }
+</style>

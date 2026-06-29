@@ -1,0 +1,61 @@
+---
+import Layout from "../layouts/Layout.astro";
+
+// Workshop data, copied verbatim from the old site. Edit this list to change
+// the offerings — no logic here, the page just renders it.
+const workshops = [
+  {
+    title: "Workshop: Zelf likeur maken",
+    meta: "duur 1,5-2 uur ; vanaf €22,50",
+    body: "Maak je eigen 'Mode Baileys' koffielikeur. U gaat zelf aan het werk met de verse ingrediënten die we voor u klaar zetten. Onder begeleiding van de Landman leert u de kneepjes van het likeur maken. Het resultaat gaat in de fles waar u zelf een kurk op slaat. Voor de gelegenheid maken we aangepaste etiketten.",
+  },
+  {
+    title: "Workshop: 'Bier in een kwartier'",
+    meta: "duur 3 uur ; vanaf €35,00",
+    body: "Een rondleiding door de technieken en materialen voor het bier maken. Zo kun je als amateur een Belgisch speciaalbier maken zoals de tripel, GrandCru, Witbier of Abdij. Bij de landman staat geen echte brouwerij maar wordt er op eenvoudige wijze bier uit moutstroop gemaakt. Uiteraard leggen we het hele brouwproces uit en laten we zien waar de mout van wordt gemaakt en hoe er wordt gehopt. Van de moutstroop maken we wort. Na minimaal 14 dagen gisten wordt u uitgenodigd om te komen bottelen in de speciale kruikjes met beugelsluiting en eigen etiket.",
+  },
+  {
+    title: "Uitgebreide rondleiding door de Wijngaard",
+    meta: "vanaf €3,50, met glas Muskaat wijn €2,50",
+    body: "Een wandeling van 30 minuten door de wijngaard met uitleg over het snoeien, bodem verbetering, druivenrassen en het gezond houden van de druiven. Vanaf half augustus zijn er ook druiven te proeven. De rondleiding kan aangevuld worden met, ontvangst met koffie en gebak, een pruverie en een wandeling wars door de velden naar de Imker.",
+  },
+  {
+    title: "Workshop: Kerstkransen vlechten van wijnranken",
+    meta: "arrangement vanaf €15,00",
+    body: "In November en December zijn er avonden gereserveerd waarin we van het snoeimateriaal kransenvlechten. Heeft u zelf een groep van ongeveer 10 personen dan wordt er een aparte avond georganiseerd. In de maanden november tot en met januari.",
+  },
+];
+---
+
+<Layout title="Workshops">
+  <section class="section">
+    <div class="container">
+      <h1>Workshops</h1>
+      <p><em>'Als je je wijnen zelf maakt gaat er passie mee in de fles'.</em></p>
+      <p>
+        's middags en 's avonds organiseren we voor groepen van 10-25 personen
+        diverse workshops (grotere aantallen in overleg, individueel inschrijven
+        niet mogelijk).
+      </p>
+
+      {
+        workshops.map((w) => (
+          <article style="border-top:1px solid var(--color-line); padding-block:1.5rem;">
+            <h2 style="margin-bottom:0.25rem;">{w.title}</h2>
+            <p style="color:var(--color-accent); font-weight:600; margin:0 0 0.5rem;">{w.meta}</p>
+            <p>{w.body}</p>
+          </article>
+        ))
+      }
+
+      <h2 style="margin-top:2rem;">Geïntresseerd geraakt?</h2>
+      <p>
+        Neem contact met ons op of vul het <a href="/contact">contactformulier</a> in:
+      </p>
+      <p>
+        <a href="mailto:info@wijngaarddelandman.nl">info@wijngaarddelandman.nl</a><br />
+        Tel: 0644554546 of 0572364177
+      </p>
+    </div>
+  </section>
+</Layout>

@@ -1,17 +1,41 @@
 ---
-
+import Layout from "../layouts/Layout.astro";
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
-</html>
+<Layout title="Home">
+  <section class="hero">
+    <div class="container">
+      <h1>Wijngaard De Landman</h1>
+      <p>
+        Bij Wijngaard De Landman in Raalte gaat het er net even anders aan toe
+        dan op andere wijngaarden. We verhuren onze druivenstokken aan
+        particulieren en daarmee brengen we het wijn maken dichter bij de mensen.
+      </p>
+      <p><em>"Door mensen zelf te laten deelnemen, zit er niet alleen wijn in de fles, maar ook emotie."</em></p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <h2>Open dag 8 oktober</h2>
+      <p>Wijngaard de Landman, Tolhuisweg 17, 8101 NV Raalte</p>
+      <p>
+        8 oktober is de Open Dag van wijngaard De Landman. We laten u graag zien
+        hoe wij hier te werk gaan door middel van een rondleiding door de
+        wijngaard. Wijnpruverien en verschillende marktkramen met streekproducten
+        zult u ook vinden op onze open dag! Entree is gratis.
+      </p>
+      <p><a class="button" href="/wijngaard">Ontdek de wijngaard</a></p>
+    </div>
+  </section>
+
+  <section class="section" style="background:#fff;">
+    <div class="container">
+      <h2>Contact</h2>
+      <p>
+        E-mail: <a href="mailto:info@wijngaarddelandman.nl">info@wijngaarddelandman.nl</a><br />
+        Tel: 0644554546 of 0572364177
+      </p>
+    </div>
+  </section>
+</Layout>
