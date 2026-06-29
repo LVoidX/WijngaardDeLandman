@@ -52,7 +52,16 @@ const current = Astro.url.pathname.replace(/\/$/, "") || "/";
         <a class="brand" href="/">
           <img src="/images/logo.png" alt="Wijngaard De Landman" width="989" height="288" />
         </a>
-        <div class="header-right">
+
+        {/* Hamburger button — only visible on small screens (see CSS).
+            aria-controls links it to the menu it opens; aria-expanded tells
+            screen readers (and our CSS) whether the menu is currently open. */}
+        <button class="nav-toggle" type="button" aria-controls="site-nav" aria-expanded="false">
+          <span class="nav-toggle__icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Menu</span>
+        </button>
+
+        <div class="header-right" id="site-nav">
           <nav class="nav" aria-label="Hoofdmenu">
             {
               navItems.map((item) => {
@@ -101,6 +110,28 @@ const current = Astro.url.pathname.replace(/\/$/, "") || "/";
         </div>
       </div>
     </footer>
+
+    {/* Mobile menu: open/close the nav when the hamburger is tapped.
+        Same pattern as the theme toggle — find the button, listen for a
+        click, flip an attribute. The CSS reacts to aria-expanded. */}
+    <script is:inline>
+      (function () {
+        var btn = document.querySelector(".nav-toggle");
+        if (!btn) return;
+
+        btn.addEventListener("click", function () {
+          var isOpen = btn.getAttribute("aria-expanded") === "true";
+          btn.setAttribute("aria-expanded", isOpen ? "false" : "true");
+        });
+
+        // Tapping a menu link should close the menu again.
+        document.querySelectorAll("#site-nav .nav a").forEach(function (link) {
+          link.addEventListener("click", function () {
+            btn.setAttribute("aria-expanded", "false");
+          });
+        });
+      })();
+    </script>
 
     {/* Toggle wiring: switch theme on click, remember the choice, and show
         which palette is active. Remove together with the toggle markup. */}

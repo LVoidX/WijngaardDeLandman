@@ -159,6 +159,109 @@ img {
   text-decoration: underline;
 }
 
+/* ---- Hamburger button (mobile only) ---- */
+.nav-toggle {
+  display: none; /* hidden on desktop; shown in the mobile media query below */
+  align-items: center;
+  justify-content: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  padding: 0;
+  border: 1px solid var(--color-line);
+  border-radius: 6px;
+  background: transparent;
+  cursor: pointer;
+}
+
+/* The three-bar icon, drawn purely in CSS (no image needed). */
+.nav-toggle__icon,
+.nav-toggle__icon::before,
+.nav-toggle__icon::after {
+  display: block;
+  width: 1.25rem;
+  height: 2px;
+  background: var(--color-ink);
+  transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+.nav-toggle__icon {
+  position: relative;
+}
+
+.nav-toggle__icon::before,
+.nav-toggle__icon::after {
+  content: "";
+  position: absolute;
+  left: 0;
+}
+
+.nav-toggle__icon::before {
+  top: -6px;
+}
+
+.nav-toggle__icon::after {
+  top: 6px;
+}
+
+/* When the menu is open, morph the bars into an X. */
+.nav-toggle[aria-expanded="true"] .nav-toggle__icon {
+  background: transparent;
+}
+
+.nav-toggle[aria-expanded="true"] .nav-toggle__icon::before {
+  transform: translateY(6px) rotate(45deg);
+}
+
+.nav-toggle[aria-expanded="true"] .nav-toggle__icon::after {
+  transform: translateY(-6px) rotate(-45deg);
+}
+
+/* Visually hidden but still read by screen readers. */
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* ---- Mobile layout: collapse the menu behind the hamburger ---- */
+@media (max-width: 52rem) {
+  .nav-toggle {
+    display: inline-flex;
+  }
+
+  /* Hide the menu by default; the button reveals it. */
+  .header-right {
+    display: none;
+    width: 100%;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.75rem;
+    padding-block: 0.75rem 0.25rem;
+  }
+
+  .nav-toggle[aria-expanded="true"] ~ .header-right {
+    display: flex;
+  }
+
+  .nav {
+    flex-direction: column;
+    gap: 0.25rem;
+    width: 100%;
+  }
+
+  .nav a {
+    display: block;
+    padding: 0.4rem 0;
+    font-size: 1.05rem;
+  }
+}
+
 /* ---- Theme toggle (temporary — for choosing a palette) ----
    Remove this block (and the toggle markup in Layout.astro) once a final
    colour scheme is picked. */
