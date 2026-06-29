@@ -25,8 +25,8 @@
   --color-accent: #b8892f;     /* warm gold accent (dates, highlights)      */
 
   /* Typography */
-  --font-heading: Georgia, "Times New Roman", serif;
-  --font-body: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --font-heading: "Playfair Display", Georgia, "Times New Roman", serif;
+  --font-body: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
 
   /* Layout */
   --maxw: 72rem;
@@ -60,13 +60,15 @@ body {
   color: var(--color-ink);
   background: var(--color-cream);
   line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
 }
 
 h1,
 h2,
 h3 {
   font-family: var(--font-heading);
-  line-height: 1.2;
+  line-height: 1.15;
+  letter-spacing: -0.01em;
   color: var(--color-wine-dark);
   margin: 0 0 0.5em;
 }
@@ -294,31 +296,46 @@ img {
   background: var(--color-wine);
   color: #fff;
   text-decoration: none;
-  padding: 0.7rem 1.4rem;
-  border-radius: 4px;
+  padding: 0.8rem 1.6rem;
+  border-radius: 999px;
+  font-weight: 500;
   font-size: 0.95rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
+  transition: background 0.18s ease, transform 0.18s ease;
 }
 
 .button:hover {
   background: var(--color-wine-dark);
+  transform: translateY(-1px);
 }
 
 /* ---- Hero ---- */
 .hero {
-  background: var(--color-wine-dark);
+  /* Layered gradient over the brand colour adds depth vs. a flat block.
+     To use a real photo later: add a url(...) as the last background layer. */
+  background:
+    radial-gradient(120% 120% at 50% 0%, rgba(255, 255, 255, 0.08), transparent 60%),
+    linear-gradient(160deg, var(--color-wine-dark), var(--color-wine));
   color: var(--color-cream);
   text-align: center;
-  padding-block: clamp(3rem, 9vw, 6rem);
+  padding-block: clamp(3.5rem, 10vw, 7rem);
 }
 
 .hero h1 {
   color: #fff;
+  font-size: clamp(2.4rem, 6vw, 4rem);
+  margin-bottom: 0.4em;
 }
 
 .hero p {
-  max-width: 40rem;
+  max-width: 42rem;
   margin-inline: auto;
-  font-size: 1.15rem;
+  font-size: 1.2rem;
+  color: rgba(255, 255, 255, 0.92);
+}
+
+.hero .button {
+  margin-top: 0.5rem;
 }
 
 /* ---- Footer ---- */

@@ -18,38 +18,98 @@ import Layout from "../layouts/Layout.astro";
             Tel: 0644554546 of 0572364177<br />
             E-mail: <a href="mailto:info@wijngaarddelandman.nl">info@wijngaarddelandman.nl</a>
           </p>
-
-          <h2>Openingstijden</h2>
-          <div class="todo-note">Stond niet op de oude site — vul hier de openingstijden in als je oom die wil tonen.</div>
         </div>
 
         <div>
           <h2>Stuur een bericht</h2>
           <div class="todo-note">
-            Dit formulier is alleen opmaak — de verzendlogica bouw jij zelf
-            (bijv. met een form-service of een eigen endpoint).
+            Werkt zodra je een gratis Web3Forms access key invult hieronder
+            (zie <code>value="VERVANG-MET-JOUW-ACCESS-KEY"</code>). Haal hem op
+            via web3forms.com met het e-mailadres waar de berichten heen moeten.
           </div>
-          {/* TODO (jij): koppel dit formulier aan een verzendmethode */}
-          <form class="contact-form">
+
+          <form class="contact-form" id="contact-form">
+            {/* Web3Forms ontvangt het bericht en mailt het door. */}
+            <input type="hidden" name="access_key" value="VERVANG-MET-JOUW-ACCESS-KEY" />
+            <input type="hidden" name="subject" value="Nieuw bericht via wijngaarddelandman.nl" />
+            <input type="hidden" name="from_name" value="Wijngaard De Landman website" />
+
+            {/* Honeypot: onzichtbaar veld; alleen bots vullen dit in. */}
+            <input
+              type="checkbox"
+              name="botcheck"
+              class="visually-hidden"
+              tabindex="-1"
+              autocomplete="off"
+            />
+
             <label>
               Naam
-              <input type="text" name="naam" autocomplete="name" />
+              <input type="text" name="naam" autocomplete="name" required />
             </label>
             <label>
               E-mail
-              <input type="email" name="email" autocomplete="email" />
+              <input type="email" name="email" autocomplete="email" required />
             </label>
             <label>
               Bericht
-              <textarea name="bericht" rows="5"></textarea>
+              <textarea name="bericht" rows="5" required></textarea>
             </label>
             <button class="button" type="submit">Versturen</button>
+
+            {/* Statusregel: hier verschijnt 'Bedankt!' of een foutmelding.
+                aria-live zorgt dat schermlezers de melding voorlezen. */}
+            <p class="form-status" role="status" aria-live="polite"></p>
           </form>
         </div>
       </div>
     </div>
   </section>
 </Layout>
+
+{/* Send the form without reloading the page, then show a status message.
+    Steps: 1) stop the normal submit, 2) gather the fields, 3) POST them to
+    Web3Forms, 4) react to the JSON answer it sends back. */}
+<script is:inline>
+  (function () {
+    var form = document.getElementById("contact-form");
+    if (!form) return;
+    var status = form.querySelector(".form-status");
+
+    form.addEventListener("submit", async function (event) {
+      event.preventDefault(); // 1) don't let the browser do its default reload
+
+      status.className = "form-status";
+      status.textContent = "Bezig met versturen…";
+
+      var data = new FormData(form); // 2) collect every field by its name=""
+
+      try {
+        // 3) hand the data to Web3Forms
+        var response = await fetch("https://api.web3forms.com/submit", {
+          method: "POST",
+          body: data,
+        });
+        var result = await response.json();
+
+        // 4) it replies with { success: true } when the mail went out
+        if (result.success) {
+          status.classList.add("is-success");
+          status.textContent = "Bedankt! Je bericht is verstuurd.";
+          form.reset();
+        } else {
+          status.classList.add("is-error");
+          status.textContent =
+            "Er ging iets mis. Mail ons gerust direct op info@wijngaarddelandman.nl.";
+        }
+      } catch (error) {
+        status.classList.add("is-error");
+        status.textContent =
+          "Versturen lukte niet. Controleer je verbinding of mail ons direct.";
+      }
+    });
+  })();
+</script>
 
 <style>
   .contact-grid {
@@ -82,5 +142,20 @@ import Layout from "../layouts/Layout.astro";
 
   .contact-form button {
     justify-self: start;
+  }
+
+  .form-status {
+    margin: 0;
+    font-size: 0.95rem;
+    font-weight: 500;
+    min-height: 1.4em; /* reserve space so the layout doesn't jump */
+  }
+
+  .form-status.is-success {
+    color: #1e7a3d;
+  }
+
+  .form-status.is-error {
+    color: #b3261e;
   }
 </style>
